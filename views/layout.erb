@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= @title %></title>
+    <!-- Le styles -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+        font-size: 1.25em;
+        line-height: 180%;
+        padding-top: 30px;
+      }
+
+      .container-narrow h1 {
+        border-bottom: 1px solid #CCC;
+        padding-bottom: 10px;
+      }
+
+    </style>
+    <style type="text/css">
+      <%= Pygments.css %>
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container-narrow">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="/index">Index</a></li>
+        </ul>
+      </div>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>
