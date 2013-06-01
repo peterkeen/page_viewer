@@ -2,7 +2,7 @@ require 'rubygems'
 require 'capistrano-buildpack'
 
 set :application, "guide"
-set :repository, "git@git.bugsplat.info:peter/pageviewer.git"
+set :repository, "git@git.bugsplat.info:peter/page_viewer.git"
 set :scm, :git
 
 role :web, "subspace.bugsplat.info"
