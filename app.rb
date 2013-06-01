@@ -19,6 +19,11 @@ RENDERER = Redcarpet::Markdown.new(
   :fenced_code_blocks => true
 )
 
+use Rack::Auth::Basic, "Restricted Area" do |username, password|
+  username == ENV['USERNAME'] and password == ENV['PASSWORD']
+end
+
+
 get '/' do
   redirect '/index'
 end
