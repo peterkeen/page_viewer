@@ -2,7 +2,7 @@ require 'sinatra'
 require 'redcarpet'
 require 'pygments'
 
-PAGE_ROOT = ARGV[0]
+PAGE_ROOT = ARGV[-1]
 unless PAGE_ROOT
   STDERR.puts("usage: app.rb PAGE_ROOT")
   exit 1
