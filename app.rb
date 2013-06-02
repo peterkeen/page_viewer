@@ -25,7 +25,11 @@ end
 
 
 get '/' do
-  redirect '/index'
+  redirect '/_index'
+end
+
+get '/:page.md' do
+  File.read(File.join(PAGE_ROOT, params[:page] + ".md"))
 end
 
 get '/:page' do
