@@ -2,6 +2,9 @@ GEM
   remote: http://rubygems.org/
   specs:
     capistrano-buildpack (0.0.10)
+    docverter (0.0.7)
+      rest-client (~> 1.6.7)
+    mime-types (1.23)
     posix-spawn (0.3.6)
     pygments.rb (0.4.2)
       posix-spawn (~> 0.3.6)
@@ -10,6 +13,8 @@ GEM
     rack-protection (1.5.0)
       rack
     redcarpet (2.3.0)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     sinatra (1.4.2)
       rack (~> 1.5, >= 1.5.2)
       rack-protection (~> 1.4)
@@ -22,6 +27,7 @@ PLATFORMS
 
 DEPENDENCIES
   capistrano-buildpack
+  docverter
   pygments.rb
   redcarpet
   sinatra

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset="utf-8">
+<title><%= @title %></title>
+<style type="text/css">
+  h1 {
+    page-break-before: always;
+  }
+  @page {
+    size: 8in 8.8in;
+    margin: 15%;
+
+    @bottom-left {
+      font-size: 60%;
+      padding-left: 1em;
+      content: "<%= @title %>";
+    }
+  
+    @bottom-right {
+      font-size: 60%;
+      content: counter(page);
+    }
+  }
+  <%= Pygments.css %>
+</style>
+</head>
+<body>
+
+<div id="container">
+  <div id="content-container">
+    <div id="content">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+</body>
+</html>
