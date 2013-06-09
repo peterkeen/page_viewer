@@ -36,9 +36,23 @@ get '/' do
 end
 
 get '/:page.md' do
+  content_type 'text/plain'
   File.read(File.join(PAGE_ROOT, params[:page] + ".md"))
 end
 
+get '/_book' do
+  @page_name = '_book'
+  chapters = File.read(File.join(PAGE_ROOT, 'chapters')).split("\n")
+  raw = ""
+  chapters.each do |chapter|
+    raw << File.read(File.join(PAGE_ROOT, chapter + ".md"))
+  end
+
+  @content = RENDERER.render(raw)
+  @title = "Mastering Modern Payments: Using Stripe with Rails"
+
+  erb :page
+end
 
 get '/_book.pdf' do
   chapters = File.read(File.join(PAGE_ROOT, 'chapters')).split("\n")
@@ -62,7 +76,6 @@ get '/:page.pdf' do
   @content = RENDERER.render(File.read(File.join(PAGE_ROOT, params[:page] + ".md")))
   @title = params[:page].gsub('_', ' ')
   pdf = erb :page, :layout => :pdf
-  p pdf
   content_type 'application/pdf'
   Docverter::Conversion.run do |c|
     c.from = 'html'
@@ -72,6 +85,7 @@ get '/:page.pdf' do
 end
 
 get '/:page' do
+  @page_name = params[:page]
   @content = RENDERER.render(File.read(File.join(PAGE_ROOT, params[:page] + ".md")))
   @title = params[:page].gsub("_", " ")
   erb :page
