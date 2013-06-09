@@ -22,14 +22,20 @@ class HTMLwithPygments < Redcarpet::Render::HTML
 end
 
 RENDERER = Redcarpet::Markdown.new(
-  HTMLwithPygments,
-  :fenced_code_blocks => true
+  HTMLwithPygments.new(:with_toc_data => true),
+  :fenced_code_blocks => true,
+)
+TOC_RENDERER = Redcarpet::Markdown.new(
+  Redcarpet::Render::HTML_TOC
 )
 
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
   username == ENV['USERNAME'] and password == ENV['PASSWORD']
 end
 
+def page_contents(page)
+  File.read(File.join(PAGE_ROOT, page + '.md'))
+end
 
 get '/' do
   redirect '/_index'
@@ -37,7 +43,7 @@ end
 
 get '/:page.md' do
   content_type 'text/plain'
-  File.read(File.join(PAGE_ROOT, params[:page] + ".md"))
+  page_contents(params[:page])
 end
 
 get '/_book' do
@@ -45,10 +51,13 @@ get '/_book' do
   chapters = File.read(File.join(PAGE_ROOT, 'chapters')).split("\n")
   raw = ""
   chapters.each do |chapter|
-    raw << File.read(File.join(PAGE_ROOT, chapter + ".md"))
+    raw << page_contents(chapter)
   end
+  book_content = RENDERER.render(raw)
+  toc_content = TOC_RENDERER.render(raw)
 
-  @content = RENDERER.render(raw)
+  @content = page_contents('cover') + toc_content + book_content
+
   @title = "Mastering Modern Payments: Using Stripe with Rails"
 
   erb :page
@@ -58,10 +67,13 @@ get '/_book.pdf' do
   chapters = File.read(File.join(PAGE_ROOT, 'chapters')).split("\n")
   raw = ""
   chapters.each do |chapter|
-    raw << File.read(File.join(PAGE_ROOT, chapter + ".md"))
+    raw << page_contents(chapter)
   end
 
-  @content = RENDERER.render(raw)
+  book_content = RENDERER.render(raw)
+  toc_content = TOC_RENDERER.render(raw)
+
+  @content = page_contents('cover') + toc_content + book_content
 
   pdf = erb :page, :layout => :pdf
   content_type 'application/pdf'
@@ -73,7 +85,7 @@ get '/_book.pdf' do
 end
 
 get '/:page.pdf' do
-  @content = RENDERER.render(File.read(File.join(PAGE_ROOT, params[:page] + ".md")))
+  @content = RENDERER.render(page_contents(params[:page]))
   @title = params[:page].gsub('_', ' ')
   pdf = erb :page, :layout => :pdf
   content_type 'application/pdf'
@@ -86,7 +98,7 @@ end
 
 get '/:page' do
   @page_name = params[:page]
-  @content = RENDERER.render(File.read(File.join(PAGE_ROOT, params[:page] + ".md")))
+  @content = RENDERER.render(page_contents(params[:page]))
   @title = params[:page].gsub("_", " ")
   erb :page
 end

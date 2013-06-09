@@ -22,6 +22,28 @@
       content: counter(page);
     }
   }
+
+  .cover {
+    page-break-after: always;
+  }
+
+  .cover .title {
+    font-family: helvetica, arial, sans-serif;
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 0.5em;
+    font-size: 2em;
+  }
+
+  .cover .subtitle {
+    font-family: helvetica, arial, sans-serif;
+    font-size: 1.5em;
+  }
+
+  .cover .author {
+    font-family: 'Droid Sans', helvetica, arial, sans-serif;
+    font-size: 1.5em;
+    padding-top: 3em;
+  }
   <%= Pygments.css %>
 </style>
 </head>
