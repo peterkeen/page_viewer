@@ -24,6 +24,7 @@ end
 RENDERER = Redcarpet::Markdown.new(
   HTMLwithPygments.new(:with_toc_data => true),
   :fenced_code_blocks => true,
+  :tables => true,
 )
 TOC_RENDERER = Redcarpet::Markdown.new(
   Redcarpet::Render::HTML_TOC
@@ -38,7 +39,13 @@ def page_contents(page)
 end
 
 get '/' do
-  redirect '/_index'
+  if File.exists?(File.join(PAGE_ROOT, '_index.md'))
+    redirect '/_index'
+  else
+    @title = "Index"
+    @files = Dir.glob(File.join(PAGE_ROOT, "*.md")).map { |f| File.basename(f, ".md") }.sort
+    erb :index
+  end
 end
 
 get '/:page.md' do
