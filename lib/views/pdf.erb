@@ -5,8 +5,8 @@
 <title><%= @title %></title>
 <style type="text/css">
   @page {
-    size: 8in 8.8in;
-    margin: 15%;
+    size: <%= @pdf_dimensions || "8in 8.8in" %>;
+    margin: <%= @pdf_margin || "15%" %>;
 
     @bottom-left {
       font-size: 60%;
