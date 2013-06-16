@@ -36,7 +36,7 @@ module PageViewer
     end
 
     get '/' do
-      if File.exists?(page_path(index))
+      if File.exists?(page_path('_index'))
         redirect '/_index'
       else
         @title = "Index"
