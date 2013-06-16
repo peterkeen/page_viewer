@@ -1,7 +1,15 @@
+PATH
+  remote: .
+  specs:
+    page_viewer (0.0.1)
+      docverter (~> 0.0.7)
+      pygments.rb (~> 0.4.2)
+      redcarpet (~> 2.3.0)
+      sinatra (~> 1.4.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
-    capistrano-buildpack (0.0.10)
     docverter (0.0.7)
       rest-client (~> 1.6.7)
     mime-types (1.23)
@@ -26,8 +34,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano-buildpack
-  docverter
-  pygments.rb
-  redcarpet
-  sinatra
+  page_viewer!
