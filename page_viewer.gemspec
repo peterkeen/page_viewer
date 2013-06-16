@@ -15,6 +15,6 @@ Gem::Specification.new do |s|
   s.add_dependency "redcarpet",   "~> 2.3.0"
   s.add_dependency "pygments.rb", "~> 0.4.2"
 
-  s.files        = Dir["{lib}/**/*.rb", "bin/*", "LICENSE", "*.md", "README.md"]
+  s.files        = Dir["{lib}/**/*.rb", "lib/public/*", "lib/views/*", "bin/*", "LICENSE", "*.md", "README.md"]
   s.require_path = 'lib'
 end
