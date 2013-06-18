@@ -24,7 +24,7 @@ module PageViewer
     )
 
     before do
-      Docverter.base_url = 'http://c.docverter.com'
+      Docverter.base_url = ENV['DOCVERTER_URL'] || 'http://c.docverter.com'
     end
 
     def page_contents(page)
