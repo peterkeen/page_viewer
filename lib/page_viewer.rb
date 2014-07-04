@@ -1,15 +1,14 @@
 require 'sinatra/base'
 require 'redcarpet'
-require 'pygments'
+require 'rouge'
+require 'rouge/plugins/redcarpet'
 require 'docverter'
 
 module PageViewer
 
-  class HTMLwithPygments < Redcarpet::Render::HTML
-    def block_code(code, language)
-      Pygments.highlight(code, :lexer => language)
-    end
-  
+  class HTMLwithHighlights < Redcarpet::Render::HTML
+    include Rouge::Plugins::Redcarpet
+
     def postprocess(document)
       document.gsub('&#39;', "'")
     end
@@ -18,13 +17,13 @@ module PageViewer
   class App < Sinatra::Base
 
     RENDERER = Redcarpet::Markdown.new(
-      HTMLwithPygments.new(:with_toc_data => true),
+      HTMLwithHighlights.new(:with_toc_data => true),
       :fenced_code_blocks => true,
       :tables => true,
     )
 
     before do
-      Docverter.base_url = ENV['DOCVERTER_URL'] || 'http://c.docverter.com'
+      Docverter.base_url = 'http://localhost:5000'
     end
 
     def page_contents(page)
@@ -52,20 +51,21 @@ module PageViewer
 
     get '/:page.pdf' do
       @content = RENDERER.render(page_contents(params[:page]))
-      @title = params[:page].gsub('_', ' ')
+      @title ||= params[:page].gsub('_', ' ')
       pdf = erb :page, :layout => :pdf
       content_type 'application/pdf'
       Docverter::Conversion.run do |c|
-        c.from = 'html'
+        c.from = 'markdown'
         c.to = 'pdf'
-        c.content = pdf
+        c.table_of_contents = true
+        c.content = page_contents(params[:page])
       end
     end
 
     get '/:page' do
       @page_name = params[:page]
       @content = RENDERER.render(page_contents(params[:page]))
-      @title = params[:page].gsub("_", " ")
+      @title ||= params[:page].gsub("_", " ")
       erb :page
     end
   end

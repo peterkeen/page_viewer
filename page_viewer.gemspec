@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sinatra",     "~> 1.4.2"
   s.add_dependency "docverter",   "~> 0.0.7"
   s.add_dependency "redcarpet",   "~> 2.3.0"
-  s.add_dependency "pygments.rb", "~> 0.4.2"
+  s.add_dependency "rouge",       "~> 1.4.0"
 
   s.files        = Dir["{lib}/**/*.rb", "lib/public/*", "lib/views/*", "bin/*", "LICENSE", "*.md", "README.md"]
   s.require_path = 'lib'
