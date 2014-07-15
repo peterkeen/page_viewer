@@ -28,7 +28,7 @@ module PageViewer
     end
 
     before '/:page' do
-      @page = Page.new(params[:page])
+      @page = Page.new(settings.page_root, params[:page])
     end
 
     get '/' do

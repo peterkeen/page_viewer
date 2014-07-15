@@ -1,13 +1,14 @@
 module PageViewer
   class Page
 
-    attr_reader :name, :headers, :body
+    attr_reader :root, :name, :headers, :body
 
-    def self.path(name)
-      File.join(PageViewer::App.settings.page_root, name + '.md')
+    def self.path(root, name)
+      File.join(root, name + '.md')
     end
     
-    def initialize(name)
+    def initialize(root, name)
+      @root = root
       @name = name
       parse_page
     end
@@ -23,7 +24,7 @@ module PageViewer
     end
 
     def contents
-      @contents ||= File.open(self.class.path(name), 'r:utf-8') do |file|
+      @contents ||= File.open(self.class.path(root, name), 'r:utf-8') do |file|
         file.read
       end
     end
