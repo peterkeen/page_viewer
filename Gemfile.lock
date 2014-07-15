@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    page_viewer (0.0.1)
+    page_viewer (0.0.2)
       docverter (~> 0.0.7)
       redcarpet (~> 2.3.0)
       rouge (~> 1.4.0)
