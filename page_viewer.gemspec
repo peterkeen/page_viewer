@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description = "Displays a directory full of markdown files in a web app"
 
   s.add_dependency "sinatra",     "~> 1.4.2"
-  s.add_dependency "docverter",   "~> 0.0.7"
+  s.add_dependency "docverter",   "~> 1.0.1"
   s.add_dependency "redcarpet",   "~> 2.3.0"
   s.add_dependency "rouge",       "~> 1.4.0"
 

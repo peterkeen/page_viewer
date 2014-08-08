@@ -1,28 +1,26 @@
 PATH
   remote: .
   specs:
-    page_viewer (0.0.3)
-      docverter (~> 0.0.7)
+    page_viewer (0.0.4)
+      docverter (~> 1.0.1)
       redcarpet (~> 2.3.0)
       rouge (~> 1.4.0)
       sinatra (~> 1.4.2)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
-    docverter (0.0.7)
-      rest-client (~> 1.6.7)
-    json (1.8.1)
-    mime-types (1.25.1)
+    docverter (1.0.1)
+      rest-client (~> 1.7)
+    mime-types (2.3)
+    netrc (0.7.7)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
-    rdoc (4.1.1)
-      json (~> 1.4)
     redcarpet (2.3.0)
-    rest-client (1.6.8)
-      mime-types (~> 1.16)
-      rdoc (>= 2.4.2)
+    rest-client (1.7.2)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rouge (1.4.0)
     sinatra (1.4.5)
       rack (~> 1.4)
